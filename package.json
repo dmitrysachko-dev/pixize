@@ -1,0 +1,65 @@
+{
+  "name": "pixize",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist-app/dist-electron/main.js",
+  "scripts": {
+    "dev:app": "vite --config vite.app.config.ts",
+    "build:app": "tsc --noEmit -p tsconfig.app.json && vite build --config vite.app.config.ts",
+    "start:app": "electron dist-app/dist-electron/main.js",
+    "dist:app": "npm run build:app && electron-builder && mkdir -p landing/public/downloads && cp release/Pixize-${npm_package_version}-arm64-mac.zip landing/public/downloads/Pixize-arm64.zip",
+    "dev:landing": "vite --config vite.landing.config.ts",
+    "build:landing": "vue-tsc --noEmit -p tsconfig.landing.json && vite build --config vite.landing.config.ts",
+    "preview:landing": "vite preview --config vite.landing.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12",
+    "lightningcss": "^1.32.0",
+    "sass": "^1.86.3",
+    "typescript": "~5.8.3",
+    "vite": "^6.2.5",
+    "vite-plugin-electron": "^0.29.0",
+    "vue-tsc": "^2.2.8"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "build": {
+    "appId": "com.pixize.app",
+    "productName": "Pixize",
+    "electronLanguages": ["en"],
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-app/**/*"
+    ],
+    "mac": {
+      "icon": "app/build/icon.icns",
+      "category": "public.app-category.developer-tools",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "app/build/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "icon": "app/build/icon.png",
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}

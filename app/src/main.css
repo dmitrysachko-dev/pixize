@@ -1,0 +1,472 @@
+:root {
+  --size: 60px;
+  --slot: 4px;
+  --border-width: 2px;
+  --border-radius: calc(var(--size) / 6);
+
+  --color-text: white;
+  --color-bg-line: indianred;
+  --color-border: yellowgreen;
+  --color-bg-ruler: olive;
+  --color-bg-btn: darkolivegreen;
+  --color-btn: greenyellow;
+}
+
+*, *:before, *:after {
+  outline: none !important;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(255,255,255, 0);
+}
+
+body {
+  position: relative;
+  font-family: monospace;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  letter-spacing: normal;
+  color: var(--color-text);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  font-variant-ligatures: none;
+}
+
+/* Olive Tree */
+body.scheme-1 {
+  /*  default  */
+}
+
+/* Aqua Blues */
+body.scheme-2 {
+  --color-border: #004d47;
+  --color-bg-ruler: #52958b;
+  --color-bg-btn: #128277;
+  --color-btn: #004d47;
+}
+
+/* Cosmopolitan */
+body.scheme-3 {
+  --color-border: #5a4e4d;
+  --color-bg-ruler: #7e675e;
+  --color-bg-btn: #dda288;
+  --color-btn: #5a4e4d;
+}
+
+/* Hazy Grays */
+body.scheme-4 {
+  --color-border: #2c4a52;
+  --color-bg-ruler: #537072;
+  --color-bg-btn: #8e9b97;
+  --color-btn: #2c4a52;
+}
+
+/* Smoky Purples */
+body.scheme-5 {
+  --color-border: #eed8c9;
+  --color-bg-ruler: #a49592;
+  --color-bg-btn: #727077;
+  --color-btn: #e99787;
+}
+
+/* Subdued */
+body.scheme-6 {
+  --color-border: #2a3132;
+  --color-bg-ruler: #336b87;
+  --color-bg-btn: #90afc5;
+  --color-btn: #2a3132;
+}
+
+/* Berry Blues */
+body.scheme-7 {
+  --color-border: #1e1f26;
+  --color-bg-ruler: #4d648d;
+  --color-bg-btn: #283655;
+  --color-btn: #d0e1f9;
+}
+
+body.ruler-x .controls.controls--move {
+  border-bottom-left-radius: calc(var(--border-radius) + var(--border-width));
+}
+body.ruler-x .controls.controls--x {
+  border-bottom-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+body.ruler-y .controls.controls--move {
+  border-top-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+body.ruler-y .controls.controls--y {
+  border-bottom-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+body.ruler-xy .controls.controls--x,
+body.ruler-xy .controls.controls--y {
+  border-bottom-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+body.ruler-x .controls.controls--xy,
+body.ruler-x .line,
+body.ruler-y .controls.controls--xy,
+body.ruler-y .line,
+body.ruler-xy .controls.controls--xy,
+body.ruler-xy .line {
+  display: none;
+}
+body.ruler-x .controls.controls--y,
+body.ruler-x .ruler.ruler--y,
+body.ruler-x .value.value--y {
+  display: none;
+}
+body.ruler-y .controls.controls--x,
+body.ruler-y .ruler.ruler--x,
+body.ruler-y .value.value--x {
+  display: none;
+}
+body.ruler-x .ruler.ruler--x {
+  height: calc(var(--size) - var(--slot) * 2);
+}
+body.ruler-y .ruler.ruler--y {
+  width: calc(var(--size) - var(--slot) * 2);
+}
+
+/* click through */
+#clickThrough {
+  position: absolute;
+  left: var(--size);
+  top: var(--size);
+  width: calc(100% - var(--size));
+  height: calc(100% - var(--size));
+}
+
+/* ruler */
+.ruler {
+  position: absolute;
+  background-color: var(--color-bg-ruler);
+  opacity: 0.9;
+}
+.ruler.ruler--x {
+  left: var(--size);
+  top: var(--slot);
+  width: calc(100% - var(--size) * 2);
+  height: calc(var(--size) - var(--slot));
+  background-repeat: repeat-x;
+  background-size: 10px 20px;
+  background-image: url('assets/ruler-top.svg'), url('assets/ruler-bottom.svg');
+  background-position: left top, left bottom;
+}
+.ruler.ruler--y {
+  left: var(--slot);
+  top: var(--size);
+  width: calc(var(--size) - var(--slot));
+  height: calc(100% - var(--size) * 2);
+  background-repeat: repeat-y;
+  background-size: 20px 10px;
+  background-image: url('assets/ruler-left.svg'), url('assets/ruler-right.svg');
+  background-position: left top, right top;
+}
+
+/* value */
+.value {
+  -webkit-app-region: drag;
+  position: absolute;
+  overflow: hidden;
+  /*cursor: move !important;*/
+}
+.value span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding-left: 4px;
+  padding-right: 4px;
+  background: var(--color-bg-ruler);
+}
+.value.value--x {
+  left: var(--size);
+  top: 0;
+  width: calc(100% - var(--size) * 2);
+  height: var(--size);
+}
+.value.value--y {
+  left: 0;
+  top: var(--size);
+  width: var(--size);
+  height: calc(100% - var(--size) * 2);
+}
+.value.value--y span {
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+/* line */
+.line {
+  position: absolute;
+  background: var(--color-bg-line);
+}
+.line.line--x {
+  left: var(--size);
+  top: calc(100% - var(--size));
+  width: calc(100% - var(--size) * 2);
+  height: var(--border-width);
+}
+.line.line--y {
+  left: calc(100% - var(--size));
+  top: var(--size);
+  width: var(--border-width);
+  height: calc(100% - var(--size) * 2);
+}
+
+/* controls */
+.controls {
+  position: absolute;
+  background: var(--color-border);
+  width: var(--size);
+  height: var(--size);
+  border: calc(var(--border-width) / 2) solid transparent;
+  overflow: hidden;
+}
+.controls.controls--move {
+  left: 0;
+  top: 0;
+  border-top-left-radius: calc(var(--border-radius) + var(--border-width));
+}
+.controls.controls--x {
+  left: calc(100% - var(--size));
+  top: 0;
+  border-top-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+.controls.controls--y {
+  left: 0;
+  top: calc(100% - var(--size));
+  border-bottom-left-radius: calc(var(--border-radius) + var(--border-width));
+}
+.controls.controls--xy {
+  left: calc(100% - var(--size));
+  top: calc(100% - var(--size));
+  border-bottom-right-radius: calc(var(--border-radius) + var(--border-width));
+}
+
+/* btn */
+.btn {
+  position: absolute;
+  background: var(--color-bg-btn);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  /*cursor: pointer;*/
+}
+.btn.btn--move-x-plus {
+  left: calc(50% + var(--border-width) / 2);
+  top: calc(var(--border-width) / 2);
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(100% - var(--border-width));
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+.btn.btn--move-x-plus span {
+  position: absolute;
+  right: calc(var(--size) / 8);
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 10) 0 calc(var(--size) / 10) calc(var(--size) / 8);
+  border-color: transparent transparent transparent var(--color-btn);
+}
+.btn.btn--move-x-minus {
+  left: 0;
+  top: calc(var(--border-width) / 2);
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(100% - var(--border-width));
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
+}
+.btn.btn--move-x-minus span {
+  position: absolute;
+  left: calc(var(--size) / 8);
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 10) calc(var(--size) / 8) calc(var(--size) / 10) 0;
+  border-color: transparent var(--color-btn) transparent transparent;
+}
+.btn.btn--move-y-plus {
+  left: calc(var(--border-width) / 2);
+  top: calc(50% + var(--border-width) / 2);
+  width: calc(100% - var(--border-width));
+  height: calc(50% - var(--border-width) / 2);
+  clip-path: polygon(0 100%, 100% 100%, 50% 0);
+}
+.btn.btn--move-y-plus span {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--size) / 8);
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 8) calc(var(--size) / 10) 0 calc(var(--size) / 10);
+  border-color: var(--color-btn) transparent transparent transparent;
+}
+.btn.btn--move-y-minus {
+  left: calc(var(--border-width) / 2);
+  top: 0;
+  width: calc(100% - var(--border-width));
+  height: calc(50% - var(--border-width) / 2);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.btn.btn--move-y-minus span {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--size) / 8);
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 0 calc(var(--size) / 10) calc(var(--size) / 8) calc(var(--size) / 10);
+  border-color: transparent transparent var(--color-btn) transparent;
+}
+.btn.btn--size-x-plus {
+  left: 0;
+  top: 0;
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(50% - var(--border-width) / 2);
+}
+.btn.btn--size-x-plus span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 10) 0 calc(var(--size) / 10) calc(var(--size) / 8);
+  border-color: transparent transparent transparent var(--color-btn);
+}
+.btn.btn--size-x-minus {
+  left: 0;
+  top: calc(50% + var(--border-width) / 2);
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(50% - var(--border-width) / 2);
+}
+.btn.btn--size-x-minus span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 10) calc(var(--size) / 8) calc(var(--size) / 10) 0;
+  border-color: transparent var(--color-btn) transparent transparent;
+}
+.btn.btn--drag-x {
+  left: calc(50% + var(--border-width) / 2);
+  top: 0;
+  width: calc(50% - var(--border-width) / 2);
+  height: 100%;
+  /*cursor: ew-resize !important;*/
+}
+.btn.btn--drag-x span:first-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 8) calc(var(--size) / 12) calc(var(--size) / 8) 0;
+  border-color: transparent var(--color-btn) transparent transparent;
+  margin-left: calc((var(--size) / 24 + var(--border-width)) * -1);
+}
+.btn.btn--drag-x span:last-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 8) 0 calc(var(--size) / 8) calc(var(--size) / 12);
+  border-color: transparent transparent transparent var(--color-btn);
+  margin-left: calc(var(--size) / 24 + var(--border-width));
+}
+.btn.btn--size-y-plus {
+  left: 0;
+  top: 0;
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(50% - var(--border-width) / 2);
+}
+.btn.btn--size-y-plus span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 8) calc(var(--size) / 10) 0 calc(var(--size) / 10);
+  border-color: var(--color-btn) transparent transparent transparent;
+}
+.btn.btn--size-y-minus {
+  left: calc(50% + var(--border-width) / 2);
+  top: 0;
+  width: calc(50% - var(--border-width) / 2);
+  height: calc(50% - var(--border-width) / 2);
+}
+.btn.btn--size-y-minus span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 0 calc(var(--size) / 10) calc(var(--size) / 8) calc(var(--size) / 10);
+  border-color: transparent transparent var(--color-btn) transparent;
+}
+.btn.btn--drag-y {
+  left: 0;
+  top: calc(50% + var(--border-width) / 2);
+  width: 100%;
+  height: calc(50% - var(--border-width) / 2);
+  /*cursor: ns-resize !important;*/
+}
+.btn.btn--drag-y span:first-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 0 calc(var(--size) / 8) calc(var(--size) / 12) calc(var(--size) / 8);
+  border-color: transparent transparent var(--color-btn) transparent;
+  margin-top: calc((var(--size) / 24 + var(--border-width)) * -1);
+}
+.btn.btn--drag-y span:last-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: calc(var(--size) / 12) calc(var(--size) / 8) 0 calc(var(--size) / 8);
+  border-color: var(--color-btn) transparent transparent transparent;
+  margin-top: calc(var(--size) / 24 + var(--border-width));
+}
+.btn.btn--drag-xy {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /*cursor: nwse-resize !important;*/
+}
+.btn.btn--drag-xy span:first-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: 50% calc(100% + var(--border-width));
+  border-style: solid;
+  border-width: 0 calc(var(--size) / 8) calc(var(--size) / 10) calc(var(--size) / 8);
+  border-color: transparent transparent var(--color-btn) transparent;
+  margin-top: calc((var(--size) / 20 + var(--border-width)) * -1);
+}
+.btn.btn--drag-xy span:last-child {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: 50% calc(0% - var(--border-width));
+  border-style: solid;
+  border-width: calc(var(--size) / 10) calc(var(--size) / 8) 0 calc(var(--size) / 8);
+  border-color: var(--color-btn) transparent transparent transparent;
+  margin-top: calc(var(--size) / 20 + var(--border-width));
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Pixize</title>
+    <link rel="stylesheet" href="/src/main.css" />
+  </head>
+  <body>
+    <div id="clickThrough"></div>
+    <div class="controls controls--x">
+      <button type="button" id="btnSizeXPlus" class="btn btn--size-x-plus"><span></span></button>
+      <button type="button" id="btnSizeXMinus" class="btn btn--size-x-minus"><span></span></button>
+      <button type="button" id="btnDragX" class="btn btn--drag-x"><span></span><span></span></button>
+    </div>
+    <div class="controls controls--y">
+      <button type="button" id="btnSizeYPlus" class="btn btn--size-y-plus"><span></span></button>
+      <button type="button" id="btnSizeYMinus" class="btn btn--size-y-minus"><span></span></button>
+      <button type="button" id="btnDragY" class="btn btn--drag-y"><span></span><span></span></button>
+    </div>
+    <div class="controls controls--xy">
+      <button type="button" id="btnDragXY" class="btn btn--drag-xy"><span></span><span></span></button>
+    </div>
+    <div class="controls controls--move">
+      <button type="button" id="btnMoveXPlus" class="btn btn--move-x-plus"><span></span></button>
+      <button type="button" id="btnMoveXMinus" class="btn btn--move-x-minus"><span></span></button>
+      <button type="button" id="btnMoveYPlus" class="btn btn--move-y-plus"><span></span></button>
+      <button type="button" id="btnMoveYMinus" class="btn btn--move-y-minus"><span></span></button>
+    </div>
+    <div id="rulerX" class="ruler ruler--x"></div>
+    <div id="rulerY" class="ruler ruler--y"></div>
+    <div class="value value--x"><span id="valueX"></span></div>
+    <div class="value value--y"><span id="valueY"></span></div>
+    <div class="line line--x"></div>
+    <div class="line line--y"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

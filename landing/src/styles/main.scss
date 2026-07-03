@@ -1,0 +1,174 @@
+$color-bg: #0f1117;
+$color-surface: #1a1d27;
+$color-text: #e8eaed;
+$color-muted: #9aa0a6;
+$color-accent: #6c8cff;
+$color-accent-hover: #8aa4ff;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: $color-bg;
+  color: $color-text;
+  line-height: 1.6;
+}
+
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid rgba($color-text, 0.08);
+  }
+
+  &__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  &__cta {
+    color: $color-muted;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-text;
+    }
+  }
+
+  &__hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 1rem;
+      line-height: 1.15;
+    }
+  }
+
+  &__subtitle {
+    color: $color-muted;
+    font-size: 1.125rem;
+    margin: 0 0 2rem;
+  }
+
+  &__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    li {
+      color: $color-muted;
+      font-size: 0.95rem;
+
+      &::before {
+        content: '✓';
+        color: $color-accent;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &__download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: $color-accent;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+
+    &:hover {
+      background: $color-accent-hover;
+    }
+  }
+
+  &__install {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    background: $color-surface;
+    border: 1px solid rgba($color-text, 0.08);
+    border-radius: 8px;
+    text-align: left;
+  }
+
+  &__install-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  &__install-text {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
+    color: $color-muted;
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__install-code {
+    margin: 0 0 0.75rem;
+    padding: 0.75rem 1rem;
+    background: $color-bg;
+    border-radius: 6px;
+    overflow-x: auto;
+
+    code {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+      font-size: 0.8125rem;
+      color: $color-text;
+      white-space: pre;
+    }
+  }
+
+  &__footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba($color-text, 0.08);
+
+    p {
+      margin: 0;
+      color: $color-muted;
+      font-size: 0.875rem;
+    }
+  }
+}
