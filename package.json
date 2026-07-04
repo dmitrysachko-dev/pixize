@@ -11,7 +11,8 @@
     "dist:app": "npm run build:app && electron-builder && mkdir -p landing/public/downloads && cp release/Pixize-${npm_package_version}-arm64-mac.zip landing/public/downloads/Pixize-arm64.zip",
     "dev:landing": "vite --config vite.landing.config.ts",
     "build:landing": "vue-tsc --noEmit -p tsconfig.landing.json && vite build --config vite.landing.config.ts",
-    "preview:landing": "vite preview --config vite.landing.config.ts"
+    "preview:landing": "vite preview --config vite.landing.config.ts",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
@@ -19,6 +20,7 @@
     "@vue/tsconfig": "^0.7.0",
     "electron": "^35.1.2",
     "electron-builder": "^26.0.12",
+    "gh-pages": "^6.3.0",
     "lightningcss": "^1.32.0",
     "sass": "^1.86.3",
     "typescript": "~5.8.3",
@@ -32,7 +34,9 @@
   "build": {
     "appId": "com.pixize.app",
     "productName": "Pixize",
-    "electronLanguages": ["en"],
+    "electronLanguages": [
+      "en"
+    ],
     "directories": {
       "output": "release"
     },
