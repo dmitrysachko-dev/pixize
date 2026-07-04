@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const downloadUrl = `${import.meta.env.BASE_URL}downloads/Pixize-arm64.zip`
+
 const features = [
   '1',
   '2',
@@ -18,11 +20,11 @@ const features = [
       <p class="landing__subtitle">
         Pixize overlays horizontal and vertical pixel rulers on your screen — measure distances, margins, and element sizes while you design or build UI.
       </p>
-      <ul class="landing__features">
-        <li v-for="feature in features" :key="feature">{{ feature }}</li>
-      </ul>
+<!--      <ul class="landing__features">-->
+<!--        <li v-for="feature in features" :key="feature">{{ feature }}</li>-->
+<!--      </ul>-->
       <section id="download" class="landing__download">
-        <a href="/downloads/Pixize-arm64.zip" download class="landing__button">Download for Apple Silicon</a>
+        <a :href="downloadUrl" download class="landing__button">Download for Apple Silicon</a>
 
         <div class="landing__install">
           <p class="landing__install-title">First launch on macOS</p>
