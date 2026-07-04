@@ -14,7 +14,7 @@ node_modules
 dist
 dist-app
 release
-downloads
+landing/public/downloads
 dist-ssr
 *.local
 
