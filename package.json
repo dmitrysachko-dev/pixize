@@ -12,7 +12,7 @@
     "dev:landing": "vite --config vite.landing.config.ts",
     "build:landing": "vue-tsc --noEmit -p tsconfig.landing.json && vite build --config vite.landing.config.ts",
     "preview:landing": "vite preview --config vite.landing.config.ts",
-    "deploy": "cross-env GITHUB_PAGES=true npm run build:landing && gh-pages -d dist --dotfiles"
+    "deploy": "cross-env GITHUB_PAGES=true npm run build:landing && gh-pages -d dist"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
