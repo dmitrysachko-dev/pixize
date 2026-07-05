@@ -8,7 +8,7 @@
     "dev:app": "vite --config vite.app.config.ts",
     "build:app": "tsc --noEmit -p tsconfig.app.json && vite build --config vite.app.config.ts",
     "start:app": "electron dist-app/dist-electron/main.js",
-    "dist:app": "npm run build:app && electron-builder && mkdir -p landing/public/downloads && cp release/Pixize-${npm_package_version}-arm64-mac.zip landing/public/downloads/Pixize-arm64.zip",
+    "dist:app": "npm run build:app && electron-builder",
     "dev:landing": "vite --config vite.landing.config.ts",
     "build:landing": "vue-tsc --noEmit -p tsconfig.landing.json && vite build --config vite.landing.config.ts",
     "preview:landing": "vite preview --config vite.landing.config.ts",
@@ -35,6 +35,7 @@
   "build": {
     "appId": "com.pixize.app",
     "productName": "Pixize",
+    "artifactName": "${productName}-${arch}.${ext}",
     "electronLanguages": [
       "en"
     ],
@@ -49,22 +50,15 @@
       "category": "public.app-category.developer-tools",
       "identity": "-",
       "hardenedRuntime": false,
-      "target": [
-        "dmg",
-        "zip"
-      ]
+      "target": ["dmg", "zip"]
     },
     "win": {
       "icon": "app/build/icon.ico",
-      "target": [
-        "nsis"
-      ]
+      "target": ["nsis"]
     },
     "linux": {
       "icon": "app/build/icon.png",
-      "target": [
-        "AppImage"
-      ]
+      "target": ["AppImage"]
     }
   }
 }

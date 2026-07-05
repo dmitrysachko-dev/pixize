@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const downloadUrl = `${import.meta.env.BASE_URL}downloads/Pixize-arm64.zip`
+const downloadUrl = 'https://github.com/dmitrysachko-dev/pixize/releases/latest/download/Pixize-arm64.zip'
 
 const features = [
   '1',
@@ -24,7 +24,14 @@ const features = [
 <!--        <li v-for="feature in features" :key="feature">{{ feature }}</li>-->
 <!--      </ul>-->
       <section id="download" class="landing__download">
-        <a :href="downloadUrl" download class="landing__button">Download for Apple Silicon</a>
+        <a
+          class="landing__button"
+          :href="downloadUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download for Apple Silicon
+        </a>
 
         <div class="landing__install">
           <p class="landing__install-title">First launch on macOS</p>
