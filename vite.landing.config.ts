@@ -5,6 +5,11 @@ import { resolve } from 'node:path'
 export default defineConfig({
   base: process.env.GITHUB_PAGES === 'true' ? '/pixize/' : '/',
   root: resolve(__dirname, 'landing'),
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'landing/src'),
+    },
+  },
   plugins: [vue()],
   css: {
     preprocessorOptions: {
