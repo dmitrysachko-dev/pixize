@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dmitrysachko-dev.github.io/pixize/sitemap.xml

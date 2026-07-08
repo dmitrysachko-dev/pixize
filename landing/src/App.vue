@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { getMessages, locales, type Locale } from './i18n'
-import { IconGitHub, IconEN, IconRU, IconCopy } from '@/icons'
+import { computed } from 'vue'
+import { IconGitHub, IconCopy } from '@/icons'
 import imgLogo from '@/assets/logo.png'
 import imgHero from '@/assets/hero.png'
 
@@ -11,59 +10,29 @@ const installCommand = 'xattr -cr ~/Downloads/Pixize.app'
 
 const hotkeyGroups = computed(() => [
   {
-    title: t.value.description.view,
+    title: 'View',
     items: [
-      { label: t.value.hotkeys.rulerX, keys: ['⌘', '+', 'X'] },
-      { label: t.value.hotkeys.rulerY, keys: ['⌘', '+', 'Y'] },
-      { label: t.value.hotkeys.rails, keys: ['⌘', '+', 'R'] },
-      { label: t.value.hotkeys.alwaysOnTop, keys: ['⌘', '+', 'T'] },
+      { label: 'Toggle horizontal ruler', keys: ['⌘', '+', 'X'] },
+      { label: 'Toggle vertical ruler', keys: ['⌘', '+', 'Y'] },
+      { label: 'Toggle corner rails', keys: ['⌘', '+', 'R'] },
+      { label: 'Always on top', keys: ['⌘', '+', 'T'] },
     ],
   },
   {
-    title: t.value.description.movement,
+    title: 'Movement',
     items: [
-      { label: t.value.hotkeys.move, keys: ['↑', '↓', '←', '→'] },
-      { label: t.value.hotkeys.moveFast, keys: ['⇧', '+', '↑', '↓', '←', '→'] },
+      { label: 'Move ruler by 1 px', keys: ['↑', '↓', '←', '→'] },
+      { label: 'Move ruler by 5 px', keys: ['⇧', '+', '↑', '↓', '←', '→'] },
     ],
   },
   {
-    title: t.value.description.resize,
+    title: 'Resize',
     items: [
-      { label: t.value.hotkeys.resize, keys: ['⌘', '+', '↑', '↓', '←', '→'] },
-      { label: t.value.hotkeys.resizeFast, keys: ['⌘', '+', '⇧', '+', '↑', '↓', '←', '→'] },
+      { label: 'Resize ruler by 1 px', keys: ['⌘', '+', '↑', '↓', '←', '→'] },
+      { label: 'Resize ruler by 5 px', keys: ['⌘', '+', '⇧', '+', '↑', '↓', '←', '→'] },
     ],
   },
 ])
-
-const locale = ref<Locale>('en')
-const langOpen = ref(false)
-const langRef = ref<HTMLElement | null>(null)
-
-const t = computed(() => getMessages(locale.value))
-
-function setLocale(code: Locale) {
-  locale.value = code
-  langOpen.value = false
-  document.documentElement.lang = code
-}
-
-function toggleLangMenu() {
-  langOpen.value = !langOpen.value
-}
-
-function onDocumentClick(event: MouseEvent) {
-  if (!langRef.value?.contains(event.target as Node)) {
-    langOpen.value = false
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('click', onDocumentClick)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', onDocumentClick)
-})
 
 async function copyInstallCommand() {
   try {
@@ -83,63 +52,34 @@ async function copyInstallCommand() {
           <span>Pixize</span>
         </div>
 
-        <div class="landing__header-right">
-          <a
-            class="landing__github"
-            :href="githubUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <IconGitHub />
-          </a>
-
-          <div ref="langRef" class="landing__lang">
-            <button
-              class="landing__lang-toggle"
-              type="button"
-              :aria-label="locale === 'en' ? 'English' : 'Русский'"
-              @click.stop="toggleLangMenu"
-            >
-              <IconEN v-if="locale === 'en'" class="landing__lang-flag" />
-              <IconRU v-else class="landing__lang-flag" />
-            </button>
-
-            <div v-if="langOpen" class="landing__lang-menu" role="menu">
-              <button
-                v-for="item in locales"
-                :key="item.code"
-                class="landing__lang-option"
-                :class="{ 'landing__lang-option--active': locale === item.code }"
-                type="button"
-                role="menuitem"
-                :aria-label="item.label"
-                @click="setLocale(item.code)"
-              >
-                <IconEN v-if="item.code === 'en'" class="landing__lang-flag" />
-                <IconRU v-else class="landing__lang-flag" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <a
+          class="landing__github"
+          :href="githubUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <IconGitHub />
+        </a>
       </div>
     </header>
 
     <main class="landing__main">
-      <section class="landing__section landing__hero">
+      <section class="landing__section">
         <div class="landing__hero-content">
           <div class="landing__hero-headline">
-            <h1>{{ t.hero.title }}</h1>
-            <p class="landing__subtitle">{{ t.hero.subtitle }}</p>
-
+            <h1>Measure UI spacing and sizes on macOS in seconds</h1>
+            <p class="subtitle">On-screen pixel ruler for designers, frontend developers, and QA.</p>
+            <p class="landing__hero-description">Place horizontal and vertical rulers anywhere on screen, read exact pixel values, and verify layouts without leaving your workflow.</p>
             <a
               class="landing__button"
               :href="downloadUrl"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {{ t.hero.download }}
+              Download free for Apple Silicon
             </a>
+            <div class="landing__hero-tags">Free · No signup · Open source on GitHub</div>
           </div>
 
           <div class="landing__hero-visual">
@@ -148,8 +88,10 @@ async function copyInstallCommand() {
         </div>
 
         <div class="landing__install">
-          <h4 class="landing__install-title">{{ t.install.title }}</h4>
-          <p class="landing__install-text">{{ t.install.text1 }}</p>
+          <h4>First launch on macOS</h4>
+          <p>macOS may block apps downloaded outside the App Store. Three quick steps:</p>
+          <p>1. <b>Download and unzip</b> the archive from GitHub.</p>
+          <p>2. <b>Run this command</b> in Terminal (if you moved the app, update the path):</p>
           <div class="landing__install-code">
             <code>{{ installCommand }}</code>
             <button
@@ -161,14 +103,14 @@ async function copyInstallCommand() {
               <IconCopy />
             </button>
           </div>
-          <p class="landing__install-text">{{ t.install.text2 }}</p>
+          <p>3. <b>Open Pixize</b> from Finder — or drag it to Applications first.</p>
         </div>
       </section>
 
       <section class="landing__section">
-        <div class="landing__description-header">
-          <h2>{{ t.description.title }}</h2>
-          <p class="landing__description-subtitle">{{ t.description.subtitle }}</p>
+        <div class="landing__section-header">
+          <h2>Keyboard shortcuts</h2>
+          <p>Show, move, and resize rulers from the keyboard — no mouse required.</p>
         </div>
 
         <div class="landing__hotkey-groups">
@@ -177,7 +119,7 @@ async function copyInstallCommand() {
             :key="group.title"
             class="landing__hotkey-group"
           >
-            <h4 class="landing__hotkey-group-title">{{ group.title }}</h4>
+            <h4>{{ group.title }}</h4>
             <ul class="landing__hotkey-list">
               <li
                 v-for="item in group.items"
@@ -199,6 +141,56 @@ async function copyInstallCommand() {
             </ul>
           </div>
         </div>
+      </section>
+
+      <section class="landing__section">
+        <h2>Why Pixize</h2>
+        <p>Small spacing mistakes show up fast in real interfaces. Pixize lets you check widths, heights, and gaps in place — without screenshots, browser devtools, or guesswork.</p>
+        <ul>
+          <li><b>Instant measurements</b> — rulers overlay any app or browser window</li>
+          <li><b>Pixel-accurate</b> — read exact values as you align UI elements</li>
+          <li><b>Stays out of the way</b> — always on top, keyboard-driven</li>
+        </ul>
+      </section>
+
+      <section class="landing__section">
+        <h2>Who It’s For</h2>
+        <p>Built for people who ship interfaces and care about visual precision:</p>
+        <ul>
+          <li><b>UI/UX designers</b> — verify handoff specs against the live UI</li>
+          <li><b>Frontend developers</b> — match Figma spacing and component dimensions in code</li>
+          <li><b>QA engineers</b> — catch layout regressions before release</li>
+          <li><b>Product teams</b> — keep execution consistent across screens and releases</li>
+        </ul>
+      </section>
+
+      <section class="landing__section">
+        <h2>FAQ</h2>
+        <h4>Is Pixize free?</h4>
+        <p>Yes. Pixize is free to download and use — no signup.</p>
+        <h4>What can I measure?</h4>
+        <p>Element width, height, and spacing between UI components directly on your screen.</p>
+        <h4>Why does macOS block Pixize on first launch?</h4>
+        <p>Apps distributed outside the App Store are quarantined by Gatekeeper. The xattr command above removes that flag so you can open the app. This is a standard step for unsigned or ad-hoc distributed macOS apps.</p>
+        <h4>Which Macs are supported?</h4>
+        <p>Currently available for Apple Silicon (M-series).</p>
+        <h4>Does Pixize need an internet connection?</h4>
+        <p>No. Once installed, measuring works fully offline.</p>
+        <h4>Is the source code available?</h4>
+        <p>Yes. Pixize is open source — view the code and releases on GitHub.</p>
+      </section>
+
+      <section class="landing__section">
+        <h2>Ready to ship cleaner UI?</h2>
+        <p>Stop guessing dimensions. Download Pixize, measure in seconds, and keep every layout pixel-accurate.</p>
+        <a
+          class="landing__button"
+          :href="downloadUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download free for Apple Silicon
+        </a>
       </section>
     </main>
 
